@@ -5,7 +5,6 @@ import java.util.Arrays;
 // [2] https://stackoverflow.com/questions/8000826/is-it-possible-to-get-only-the-first-character-of-a-string 
 // [3] https://stackoverflow.com/questions/35669580/converting-char-a-to-number-0-using-java-function 
 
-// should probably rename class
 class Unsatisfactory {
 
     public static String[] assignPairs(String[][] programmer_matrix, int[][] company_matrix) {
@@ -98,94 +97,6 @@ class Unsatisfactory {
 
         return pairings;
     }
-
-    // This is old dead code, can delete later
-    public static String[] assignCompanies(String[][] programmer_matrix, int[][] company_matrix, String[] assignments) {
-        int numProgrammers = programmer_matrix[0].length;
-        //base case: everyone has been assigned a company
-        if (assignments.length == numProgrammers) {
-            return assignments;
-        }
-
-        // recursive case:
-        int programmerIndex = assignments.length;
-        String[] nextAssignments = Arrays.copyOf(assignments, assignments.length + 1);
-
-        // grabs this programmer's most preferred company
-        // then checks that it's not already taken by a previous programmer
-        // if it is, goes down the list of that programmer's preferences and tries the next one
-        for (int choice = 0; choice < programmer_matrix.length; choice++) {
-            String company = programmer_matrix[choice][programmerIndex];
-            //System.out.println("" + company);
-            //System.out.println("\n");
-
-            if (!isTaken(assignments, company)) {
-                nextAssignments[programmerIndex] = (programmerIndex + 1) + company;
-                break;
-            }
-        }
-        // i think this works if you do a valid check here and then remove elements in the arr? and walk the matrix
-        return assignCompanies(programmer_matrix, company_matrix, nextAssignments);
-    }
-
-    // Helper function to check if a company has already been assigned to a programmer
-    // Loops through the assignments array
-    private static boolean isTaken(String[] assignments, String company) {
-        // need a refresher on how to use the enhanced for loop [1]
-        for (String pair : assignments) {
-            if (pair.endsWith(company)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    public static boolean assessAllPairs(int currIdx, String[] assignments, int[][] companyMatrix, String[] programmerMatrix){
-        // p1 is the latest insertion at currIdx
-        // p2 is all pairs listed in the assignments in front of it
-        // c1 is the latest insertion company
-        // c2 is compnay of the respective pairs in assignments
-        int j;
-        while(j<currIdx){
-            assignments[j].split(" ");
-            if (programmerMatrix[j].startsWith(assignments[currIdx])) { break; };
-        }
-        // assignments -1 idx will be the pair and then i'll remove it there if it's bad
-        String currComparison = assignments[currIdx].split(" ")[0];
-        // should be static throughout
-        int p1Ratingc1 = findPairRatingString(currComparison, j, companyMatrix);
-        int p1 = Integer.parseInt(assignments[currIdx].split(" ")[1]);
-        for(int i = 0; i<currIdx-1;i++){
-            // companies have numbers
-            // have to find idx of both
-            String c2 = assignments[i].split(" ")[0];
-            int k;
-            while(k<currIdx){
-                assignments[j].split(" ");
-                if (programmerMatrix[j].endsWith(assignments[currIdx])) { break; };
-            }
-            
-            int p1Ratingc2 = findPairRatingString(c2, j, companyMatrix);
-            int c2ratingp1 = findPairRatingInt(p1, );
-            int c2ratingp2 = findPairRatingInt();
-            if (!Unsatisfactory(p1Ratingc1, p1Ratingc2, c2ratingp1, c2ratingp2)){ return false; }
-        }
-        return true;
-    }
-public static int findPairRatingString(String val, int idx, String[][] mat){
-    int i;
-    for (i = 0; i<mat.length;i++){
-        if(val == mat[i][idx]){ break; }
-    }
-    return i;
-}
-public static int findPairRatingInt(int val, int idx, int[][] mat){
-    int i;
-    for (i = 0; i<mat.length;i++){
-        if(val == mat[i][idx]){ break; }
-    }
-    return i;
-}
 
 // Helper to check if two pairings are unsatisfactory
 public static boolean isUnsatisfactory(int p1Ratingc1, int p1Ratingc2, int c2ratingp1, int c2ratingp2){
