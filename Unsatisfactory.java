@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 // Sources used for help online:
 // [1] https://stackoverflow.com/questions/11685305/what-is-the-syntax-of-the-enhanced-for-loop-in-java 
 // [2] https://stackoverflow.com/questions/8000826/is-it-possible-to-get-only-the-first-character-of-a-string 
@@ -8,11 +6,17 @@ import java.util.Arrays;
 // Found sudo code for help with the while loop approach (Gale-Shapley)
 // [4] https://aaronclauset.github.io/courses/5454/csci5454_spring2013_L16.pdf 
 
+// Authors Gabe and Tucker
+// To run the algorithm there is the main method at the bottom. 
+// You will assign data there im the matrices
+
+// Testing data we had is also there at the bottom
+
 class Unsatisfactory {
 
     public static String[] assignPairs(String[][] programmer_matrix, int[][] company_matrix) {
         // Gets us the dimensions of the matrix
-        // Used for how many pairs there shoud be and how many rankings there are
+        // Used for how many pairs there should be and how many rankings there are
         int num_pairs = programmer_matrix[0].length;
 
         // Array for programmers choice in companies ranked
@@ -25,7 +29,7 @@ class Unsatisfactory {
         String[] programmer_current_company = new String[num_pairs];
 
         // Array for tracking which programmers currently hold a company
-        boolean[] programmer_is_assigned = new boolean[num_pairs];
+        boolean[] programmer_is_assigned = new boolean[num_pairs]; //[4]
 
         int assigned_count = 0;
 
@@ -60,7 +64,7 @@ class Unsatisfactory {
             if (held_programmer == 0) {
                 int programmer = programmer_index + 1;
 
-                // Make the programmer and comanies assigned to eachother
+                // Make the programmer and companies assigned to each other
                 company_current_programmer[company_index] = programmer;
                 programmer_current_company[programmer_index] = company;
 
@@ -70,7 +74,7 @@ class Unsatisfactory {
             } else {
                 int new_programmer = programmer_index + 1;
 
-                // Company already holds a progammer, need to compare to see who the comapnay rates higher
+                // Company already holds a programmer, need to compare to see who the company rates higher
                 int new_programmer_rating = companyRating(company_matrix, company_index, new_programmer);
                 int held_programmer_rating = companyRating(company_matrix, company_index, held_programmer);
 
@@ -83,7 +87,7 @@ class Unsatisfactory {
 
                     programmer_is_assigned[programmer_index] = true;
 
-                    // Make the old progammer unnassigend (sudo code helped here the most instead of swapping the values, making one unassigned)
+                    // Make the old programmer unassigned (sudo code helped here the most instead of swapping the values, making one unassigned)
                     int held_programmer_index = held_programmer - 1;
                     programmer_is_assigned[held_programmer_index] = false;
                 }
@@ -94,8 +98,8 @@ class Unsatisfactory {
 
         // grab all the pairs
         for (int i = 0; i < num_pairs; i++) {
-            int progammer = i + 1;
-            pairings[i] = progammer + programmer_current_company[i];
+            int programmer = i + 1;
+            pairings[i] = programmer + programmer_current_company[i];
         }
 
         return pairings;
@@ -182,12 +186,13 @@ public static boolean isSatisfactoryPairings(String[] pairings, String[][] progr
     return true; 
 }
 
+
 // Main method to run the algorithm
 public static void main(String[] args) {
     // Here is where you assign company preferences
     int[][] company_matrix = {
-        // who the company prefers
-        //A  B  C  D  E
+       // who the company prefers
+       //A  B  C  D  E
         {2, 1, 5, 1, 2},
         {5, 2, 3, 3, 3},
         {1, 3, 2, 2, 5},
@@ -195,10 +200,11 @@ public static void main(String[] args) {
         {4, 5, 4, 5, 1}
     };
 
+    // USE CAPITAL LETTERS, OTHER WISE MATH WILL BE OFF
     // Here is where you assign programmer preferences
-    // who the programmer prefers
-    // 1    2    3    4    5
     String[][] programmer_matrix = {
+       // who the programmer prefers
+       // 1    2    3    4    5
         {"E", "D", "D", "C", "A"},
         {"A", "E", "B", "B", "D"},
         {"D", "B", "C", "D", "B"},
@@ -249,3 +255,56 @@ static void printStringMatrix(String[][] m) {
     }
 }
 }
+
+// Testing data:
+// n=3
+//
+// int[][] company_matrix = {
+//     // who the company prefers
+//     //A  B  C  D  E
+//     {2, 3, 3},
+//     {1, 2, 1},
+//     {3, 1, 2}
+// };
+//
+// String[][] programmer_matrix = {
+//     {"A", "A", "C"},
+//     {"C", "C", "A"},
+//     {"B", "B", "B"}
+// };
+//
+// n=4
+//
+// int[][] company_matrix = {
+//     // who the company prefers
+//     //A  B  C  D  E
+//     {3, 4, 3, 1},
+//     {2, 1, 4, 2},
+//     {4, 3, 1, 3},
+//     {1, 2, 2, 4}
+// };
+//
+// String[][] programmer_matrix = {
+//     {"A", "D", "D", "C"},
+//     {"D", "A", "A", "B"},
+//     {"C", "C", "B", "D"},
+//     {"B", "B", "C", "A"}
+// };
+//
+// n=5
+//
+// int[][] company_matrix = {
+//     {2, 1, 5, 1, 2},
+//     {5, 2, 3, 3, 3},
+//     {1, 3, 2, 2, 5},
+//     {3, 4, 1, 4, 4},
+//     {4, 5, 4, 5, 1}
+// };
+
+// String[][] programmer_matrix = {
+//     {"E", "D", "D", "C", "A"},
+//     {"A", "E", "B", "B", "D"},
+//     {"D", "B", "C", "D", "B"},
+//     {"B", "A", "E", "A", "C"},
+//     {"C", "C", "A", "E", "E"}
+// };
