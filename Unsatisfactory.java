@@ -3,7 +3,10 @@ import java.util.Arrays;
 // Sources used for help online:
 // [1] https://stackoverflow.com/questions/11685305/what-is-the-syntax-of-the-enhanced-for-loop-in-java 
 // [2] https://stackoverflow.com/questions/8000826/is-it-possible-to-get-only-the-first-character-of-a-string 
-// [3] https://stackoverflow.com/questions/35669580/converting-char-a-to-number-0-using-java-function 
+// [3] https://stackoverflow.com/questions/35669580/converting-char-a-to-number-0-using-java-function
+
+// Found sudo code for help with the while loop approach (Gale-Shapley)
+// [4] https://aaronclauset.github.io/courses/5454/csci5454_spring2013_L16.pdf 
 
 class Unsatisfactory {
 
@@ -48,7 +51,7 @@ class Unsatisfactory {
             programmer_next_choice[programmer_index] = next_rank;
 
             // Convert the company letter into a 0-based index for the company matrix
-            int company_index = company.charAt(0) - 'A';
+            int company_index = company.charAt(0) - 'A'; //[3]
 
             int held_programmer = company_current_programmer[company_index];
 
@@ -74,13 +77,13 @@ class Unsatisfactory {
                 // Lower the rank the better, like golf
                 // Check whether the company prefers the new programmer over its current
                 if (new_programmer_rating < held_programmer_rating) {
-                    // Comapny takes the new programmer
+                    // Company takes the new programmer
                     company_current_programmer[company_index] = new_programmer;
                     programmer_current_company[programmer_index] = company;
 
                     programmer_is_assigned[programmer_index] = true;
 
-                    // Make the old progammer unnassigend
+                    // Make the old progammer unnassigend (sudo code helped here the most instead of swapping the values, making one unassigned)
                     int held_programmer_index = held_programmer - 1;
                     programmer_is_assigned[held_programmer_index] = false;
                 }
